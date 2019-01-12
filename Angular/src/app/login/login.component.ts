@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { auth } from 'firebase/app';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import { auth } from 'firebase/app';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public fireAuth: AngularFireAuth, private firestore: AngularFirestore) {
+  constructor(public fireAuth: AngularFireAuth, private firestore: AngularFirestore, private router: Router) {
   }
 
   async login(provName: String) {
@@ -27,6 +28,7 @@ export class LoginComponent implements OnInit {
     }
     try {
       await this.registerUser(await this.fireAuth.auth.signInWithPopup(provider));
+      this.router.navigateByUrl('');
     } catch (error) {
       console.log(error);
     }
