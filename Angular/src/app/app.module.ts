@@ -10,13 +10,17 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LinkComponent } from './link/link.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    LinkComponent
+    LinkComponent,
+    NavbarComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
