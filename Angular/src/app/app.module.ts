@@ -12,6 +12,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LinkComponent } from './link/link.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SettingsComponent } from './settings/settings.component';
+import { MainComponent } from './main/main.component';
+import { LinkAddComponent } from './link-add/link-add.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,14 +23,18 @@ import { SettingsComponent } from './settings/settings.component';
     DashboardComponent,
     LinkComponent,
     NavbarComponent,
-    SettingsComponent
+    SettingsComponent,
+    MainComponent,
+    LinkAddComponent
   ],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
