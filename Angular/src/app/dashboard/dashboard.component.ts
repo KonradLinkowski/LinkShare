@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { Link } from '../link';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,13 +10,15 @@ import { AngularFireAuth } from '@angular/fire/auth';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private fireAuth: AngularFireAuth) { }
+  links: Link[];
+
+  constructor(private fireAuth: AngularFireAuth, private firestore: AngularFirestore) { }
 
   logout() {
     this.fireAuth.auth.signOut();
   }
 
   ngOnInit() {
+    this.firestore.collection<Link>('links').valueChanges().subscribe(links => this.links = links);
   }
-
 }

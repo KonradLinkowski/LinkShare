@@ -1,4 +1,2 @@
-<p>
-  dashboard works!
-</p>
 <button (click)="logout()">logout</button>
+<app-link *ngFor="let link of links" [link]="link"></app-link>
