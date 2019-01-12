@@ -11,10 +11,10 @@ service cloud.firestore {
       }
       allow read, delete: if signedIn() && request.auth.uid == resource.data.owner;
       allow update: if signedIn() && isValid() && request.auth.uid == resource.data.owner;
-      allow write: if signedIn() && isValid() && request.auth.uid == request.resource.data.owner;
+      allow create: if signedIn() && isValid() && request.auth.uid == request.resource.data.owner;
     }
     match /users/{user} {
-      allow get: if signedIn() && request.auth.uid == user;
+      allow get, create, delete, update: if signedIn() && request.auth.uid == user;
     }
   }
 }
