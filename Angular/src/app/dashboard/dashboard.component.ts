@@ -19,6 +19,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.firestore.collection<Link>('links').valueChanges().subscribe(links => this.links = links);
+    this.firestore.collection<Link>('links', ref => ref.where('owner', '==', this.fireAuth.auth.currentUser.uid))
+      .valueChanges().subscribe(links => this.links = links);
   }
 }
