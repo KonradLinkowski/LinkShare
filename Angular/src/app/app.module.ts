@@ -15,6 +15,8 @@ import { SettingsComponent } from './settings/settings.component';
 import { MainComponent } from './main/main.component';
 import { LinkAddComponent } from './link-add/link-add.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LinkFolderComponent } from './link-folder/link-folder.component';
+import { FolderAddComponent } from './folder-add/folder-add.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NavbarComponent,
     SettingsComponent,
     MainComponent,
-    LinkAddComponent
+    LinkAddComponent,
+    LinkFolderComponent,
+    FolderAddComponent
   ],
   imports: [
     BrowserModule,

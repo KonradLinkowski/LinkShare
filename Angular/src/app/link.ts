@@ -1,5 +1,6 @@
 export class Link {
-  url: String;
-  name: String;
-  description: String;
+  url: string;
+  name: string;
+  description: string;
+  owner: string;
 }

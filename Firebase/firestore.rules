@@ -3,15 +3,18 @@ service cloud.firestore {
     function signedIn() {
       return request.auth.uid != null;
     }
-    match /links/{link} {
-      function isValid() {
-        return request.resource.data.owner != null
-          && request.resource.data.name != null && request.resource.data.name.size() > 2
-          && request.resource.data.url != null && request.resource.data.url.size() > 2;
+    match /folders/{folder} {
+      allow read, write: if true;
+      match /links/{link} {
+        function isValid() {
+          return request.resource.data.owner != null
+            && request.resource.data.name != null && request.resource.data.name.size() > 2
+            && request.resource.data.url != null && request.resource.data.url.size() > 2;
+        }
+        allow read, delete: if signedIn() && request.auth.uid == resource.data.owner;
+        allow update: if signedIn() && isValid() && request.auth.uid == resource.data.owner;
+        allow create: if signedIn() && isValid() && request.auth.uid == request.resource.data.owner;
       }
-      allow read, delete: if signedIn() && request.auth.uid == resource.data.owner;
-      allow update: if signedIn() && isValid() && request.auth.uid == resource.data.owner;
-      allow create: if signedIn() && isValid() && request.auth.uid == request.resource.data.owner;
     }
     match /users/{user} {
       allow get, create, delete, update: if signedIn() && request.auth.uid == user;

@@ -1,0 +1,4 @@
+.folders {
+  display: flex;
+  flex-wrap: wrap;
+}

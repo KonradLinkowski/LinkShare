@@ -1,2 +1,4 @@
-<app-link-add></app-link-add>
-<app-link *ngFor="let link of links" [link]="link"></app-link>
+<app-folder-add></app-folder-add>
+<div class='folders'>
+  <app-link-folder *ngFor="let folder of folders" [folder]="folder"></app-link-folder>
+</div>

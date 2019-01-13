@@ -1,5 +1,6 @@
-<div>
-  <p>{{ link.name }}</p>
-  <a href="{{ link.url }}">{{ link.url }}</a>
-  <p>{{ link.description }}</p>
+<div class="link">
+  <a class="link_address" href="{{ link.url }}">
+    <h3 class="title">{{ link.name }}</h3>
+  </a>
+  <p class="description">{{ link.description }}</p>
 </div>

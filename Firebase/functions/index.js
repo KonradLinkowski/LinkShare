@@ -6,7 +6,7 @@ const db = admin.firestore();
 
 exports.deleteAllUserData = functions.auth.user().onDelete(user => {
   return new Promise((resolve, reject) => {
-    db.collection('links').where('owner', '==', user.uid).get()
+    db.collection('folders').where('owner', '==', user.uid).get()
     .then(res => {
       const batch = db.batch();
       res.docs.forEach(doc => {
@@ -23,7 +23,7 @@ exports.deleteAllUserData = functions.auth.user().onDelete(user => {
       })
     })
     .catch(err => {
-      console.log(err);
+      console.error(err);
       reject(err);
     })
   })

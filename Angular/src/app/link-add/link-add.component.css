@@ -2,3 +2,12 @@
   display: flex;
   flex-direction: column;
 }
+
+.link_form-field {
+  display: flex;
+}
+
+.link_form-input {
+  flex: 1;
+  margin-left: 10px;
+}

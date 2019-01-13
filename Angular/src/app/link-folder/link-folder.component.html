@@ -1,0 +1,5 @@
+<div class="folder">
+  <h2>{{ folder.name }}</h2>
+  <app-link-add [folderId]="folder.id"></app-link-add>
+  <app-link *ngFor="let link of links" [link]="link"></app-link>
+</div>

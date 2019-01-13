@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Link } from '../link';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
+import { Folder } from '../folder';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,8 +10,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  links: Link[];
-  private linksValueChanges: Subscription;
+  folders: Folder[];
+  private foldersValueChanges: Subscription;
 
   constructor(private fireAuth: AngularFireAuth, private firestore: AngularFirestore) { }
 
@@ -20,11 +20,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.linksValueChanges = this.firestore.collection<Link>('links', ref => ref.where('owner', '==', this.fireAuth.auth.currentUser.uid))
-      .valueChanges().subscribe(links => this.links = links);
+    this.foldersValueChanges = this.firestore
+      .collection<Folder>('folders', ref => ref.where('owner', '==', this.fireAuth.auth.currentUser.uid))
+      .snapshotChanges().subscribe(folders => {
+        this.folders = folders.map(fold => {
+          return {
+            id: fold.payload.doc.id,
+            name: fold.payload.doc.data().name,
+            owner: fold.payload.doc.data().owner
+          };
+        });
+      });
   }
 
   ngOnDestroy() {
-    this.linksValueChanges.unsubscribe();
+    this.foldersValueChanges.unsubscribe();
   }
 }

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { Link } from '../link';
 
 @Component({
   selector: 'app-link-add',
@@ -9,6 +10,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
   styleUrls: ['./link-add.component.css']
 })
 export class LinkAddComponent implements OnInit {
+  @Input() folderId: string;
+
   linkForm = new FormGroup({
     name: new FormControl(''),
     url: new FormControl(''),
@@ -18,7 +21,8 @@ export class LinkAddComponent implements OnInit {
   constructor(private firestore: AngularFirestore, private fireAuth: AngularFireAuth) { }
 
   onSubmit() {
-    this.firestore.collection('links').add({
+    console.log(this.folderId);
+    this.firestore.collection('folders').doc(this.folderId).collection<Link>('links').add({
       name: this.linkForm.value.name,
       url: this.linkForm.value.url,
       description: this.linkForm.value.description,
