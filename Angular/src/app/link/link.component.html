@@ -3,5 +3,5 @@
     <h3 class="title">{{ link.name }}</h3>
   </a>
   <p class="description">{{ link.description }}</p>
-  <button (click)="deleteLink()">x</button>
+  <button (click)="deleteLink()" *ngIf="isMine()">x</button>
 </div>
