@@ -1,0 +1,14 @@
+<div class="wrapper">
+  <input type="text" (keyup)="search()" [(ngModel)]="searchString">
+  <div *ngFor="let user of users; let i = index">
+    <input
+      type="checkbox"
+      name=""
+      id="tag-{{ i }}"
+      (change)="check($event.target, i)"
+      class="checkbox"
+    >
+    <label for="tag-{{ i }}" class="label">{{ user.displayName }}</label>
+  </div>
+  <button (click)="share()" class="folder_form-button" >Submit</button>
+</div>

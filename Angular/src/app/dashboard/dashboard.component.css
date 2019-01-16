@@ -1,0 +1,71 @@
+.wrapper {
+  position: relative;
+}
+
+.folders {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  z-index: 9;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  min-width: 100px;
+  min-height: 100px;
+  z-index: 10;
+  -webkit-box-shadow: 0px 0px 54px -12px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 54px -12px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 54px -12px rgba(0,0,0,0.75);
+}
+
+.modal-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 9;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.add-folder-button {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 1.3rem;
+  cursor: pointer;
+  margin: 2px 3px;
+  padding: 10px 12px;
+  font-weight: bold;
+  background-color: blue;
+  color: white;
+}
+
+.add-folder-button:hover {
+  background-color: darkblue;
+}
+
+.add-folder-button:active {
+  background-color: lightblue;
+}
+
+.add-folder-button:focus {
+  outline: none;
+}

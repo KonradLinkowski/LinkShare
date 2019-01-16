@@ -1,0 +1,17 @@
+<div class="wrapper">
+  <button (click)="openModal(true)" class="add-folder-button"><span class="fas fa-plus"></span></button>
+  <div *ngIf="modalIsOpen" class="modal">
+    <div class="modal-inner">
+      <app-folder-add></app-folder-add>
+    </div>
+    <div (click)="openModal(false)" class="modal-background"></div>
+  </div>
+  <h2>Mine</h2>
+  <div class='folders'>
+    <app-link-folder *ngFor="let folder of folders" [folder]="folder"></app-link-folder>
+  </div>
+  <h2>Shared</h2>
+  <div class='folders'>
+    <app-link-folder *ngFor="let folder of sharedFolders" [folder]="folder"></app-link-folder>
+  </div>
+</div>

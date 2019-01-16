@@ -1,0 +1,5 @@
+<form [formGroup]="folderForm" (ngSubmit)="onSubmit()" class="folder_form">
+  <label for="folder-name">Name</label>
+  <input formControlName="name" id="folder-name" class="folder_form-input" type="text" required>
+  <button [disabled]="!folderForm.valid" class="folder_form-button" type="submit">Submit</button>
+</form>

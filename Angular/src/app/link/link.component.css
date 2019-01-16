@@ -1,0 +1,13 @@
+.link {
+  border-radius: 5px;
+  border: 1px solid red;
+  padding: 4px;
+}
+
+.title {
+  margin: 3px;
+}
+
+.description {
+  margin: 2px;
+}

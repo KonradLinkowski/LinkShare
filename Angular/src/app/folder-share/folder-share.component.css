@@ -1,0 +1,16 @@
+.checkbox {
+  visibility: hidden; 
+  position: absolute;
+}
+
+.label {
+  -webkit-user-select: none;  
+  -moz-user-select: none;    
+  -ms-user-select: none;      
+  user-select: none;
+  cursor: pointer;
+}
+
+.checkbox:checked ~ label {
+  background: red;
+}

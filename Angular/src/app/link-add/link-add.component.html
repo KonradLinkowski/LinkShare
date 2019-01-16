@@ -1,0 +1,15 @@
+<form [formGroup]="linkForm" (ngSubmit)="onSubmit()" class="link_form">
+  <div class="link_form-field">
+    <label for="link-name">Name</label>
+    <input formControlName="name" id="link-name" class="link_form-input" type="text" required>
+  </div>
+  <div class="link_form-field">
+    <label for="link-url">URL</label>
+    <input formControlName="url" id="link-url" class="link_form-input" type="text" required>
+  </div>
+  <div class="link_form-field">
+    <label for="link-description">Description</label>
+    <input formControlName="description" id="link-description" class="link_form-input" type="text">
+  </div>
+  <button [disabled]="!linkForm.valid" class="link_form-button" type="submit">Submit</button>
+</form>
