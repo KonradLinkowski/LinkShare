@@ -11,6 +11,7 @@ import { Link } from '../models/link';
 })
 export class LinkAddComponent implements OnInit {
   @Input() folderId: string;
+  @Input() callback: (error?: firebase.firestore.DocumentReference) => void;
 
   linkForm = new FormGroup({
     name: new FormControl(''),
@@ -28,11 +29,11 @@ export class LinkAddComponent implements OnInit {
       owner: this.fireAuth.auth.currentUser.uid,
       folder: this.folderId
     })
-    .then(res => {
-      console.log(res);
+    .then(() => {
+      this.callback();
     })
     .catch(err => {
-      console.error(err);
+      this.callback(err);
     });
     this.linkForm.setValue({
       name: '',

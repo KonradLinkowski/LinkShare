@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Subscription } from 'rxjs';
+import { Subscription, bindCallback } from 'rxjs';
 import { User } from '../models/user';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Folder } from '../models/folder';
@@ -13,6 +13,8 @@ import { firestore } from 'firebase/app';
 })
 export class FolderShareComponent implements OnInit, OnDestroy {
   @Input() folderId: string;
+  @Input() callback: (error?: firebase.firestore.DocumentReference) => void;
+
   private findSubscription: Subscription;
   private allUsers: User[];
   private users: User[];
@@ -39,6 +41,12 @@ export class FolderShareComponent implements OnInit, OnDestroy {
     this.selectedUsers.forEach(u => {
       this.fireStore.collection<Folder>('folders').doc(this.folderId).update({
         users: firestore.FieldValue.arrayUnion(u.id)
+      })
+      .then(() => {
+        this.callback();
+      })
+      .catch(err => {
+        this.callback(err);
       });
     });
   }
