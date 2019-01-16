@@ -17,6 +17,7 @@ import { LinkAddComponent } from './link-add/link-add.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LinkFolderComponent } from './link-folder/link-folder.component';
 import { FolderAddComponent } from './folder-add/folder-add.component';
+import { FolderShareComponent } from './folder-share/folder-share.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { FolderAddComponent } from './folder-add/folder-add.component';
     MainComponent,
     LinkAddComponent,
     LinkFolderComponent,
-    FolderAddComponent
+    FolderAddComponent,
+    FolderShareComponent,
   ],
   imports: [
     BrowserModule,

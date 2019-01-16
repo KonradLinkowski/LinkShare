@@ -11,7 +11,9 @@ import { Folder } from '../models/folder';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   folders: Folder[];
+  sharedFolders: Folder[];
   private foldersValueChanges: Subscription;
+  private shaderFoldersValueChanges: Subscription;
   private modalIsOpen: boolean;
 
   constructor(
@@ -29,19 +31,36 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.foldersValueChanges = this.firestore
-      .collection<Folder>('folders', ref => ref.where('owner', '==', this.fireAuth.auth.currentUser.uid))
-      .snapshotChanges().subscribe(folders => {
-        this.folders = folders.map(fold => {
-          return {
-            id: fold.payload.doc.id,
-            name: fold.payload.doc.data().name,
-            owner: fold.payload.doc.data().owner
-          };
-        });
+    .collection<Folder>('folders', ref => ref.where('owner', '==', this.fireAuth.auth.currentUser.uid))
+    .snapshotChanges().subscribe(folders => {
+      this.folders = folders.map(fold => {
+        const data = fold.payload.doc.data();
+        return {
+          id: fold.payload.doc.id,
+          name: data.name,
+          owner: data.owner,
+          users: data.users
+        };
       });
+    });
+
+    this.shaderFoldersValueChanges = this.firestore
+    .collection<Folder>('folders', ref => ref.where('users', 'array-contains', this.fireAuth.auth.currentUser.uid))
+    .snapshotChanges().subscribe(folders => {
+      this.sharedFolders = folders.map(fold => {
+        const data = fold.payload.doc.data();
+        return {
+          id: fold.payload.doc.id,
+          name: data.name,
+          owner: data.owner,
+          users: data.users
+        };
+      });
+    });
   }
 
   ngOnDestroy() {
     this.foldersValueChanges.unsubscribe();
+    this.shaderFoldersValueChanges.unsubscribe();
   }
 }

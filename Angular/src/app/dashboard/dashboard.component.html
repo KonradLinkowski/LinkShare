@@ -7,6 +7,11 @@
     <div (click)="openModal(false)" class="modal-background"></div>
   </div>
   <div class='folders'>
+    <h2>Mine</h2>
     <app-link-folder *ngFor="let folder of folders" [folder]="folder"></app-link-folder>
+  </div>
+  <div class='folders'>
+    <h2>Shared</h2>
+    <app-link-folder *ngFor="let folder of sharedFolders" [folder]="folder"></app-link-folder>
   </div>
 </div>

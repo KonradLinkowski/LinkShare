@@ -21,18 +21,18 @@ export class LinkAddComponent implements OnInit {
   constructor(private firestore: AngularFirestore, private fireAuth: AngularFireAuth) { }
 
   onSubmit() {
-    console.log(this.folderId);
-    this.firestore.collection('folders').doc(this.folderId).collection<Link>('links').add({
+    this.firestore.collection('folders').doc(this.folderId).collection('links').add({
       name: this.linkForm.value.name,
       url: this.linkForm.value.url,
       description: this.linkForm.value.description,
-      owner: this.fireAuth.auth.currentUser.uid
+      owner: this.fireAuth.auth.currentUser.uid,
+      folder: this.folderId
     })
     .then(res => {
       console.log(res);
     })
     .catch(err => {
-      console.log(err);
+      console.error(err);
     });
     this.linkForm.setValue({
       name: '',

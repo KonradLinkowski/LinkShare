@@ -32,8 +32,20 @@ export class LinkFolderComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.linksValueChanges = this.firestore
       .collection<Folder>('folders').doc(this.folder.id)
-      .collection<Link>('links', ref => ref.where('owner', '==', this.fireAuth.auth.currentUser.uid))
-      .valueChanges().subscribe(links => this.links = links);
+      .collection<Link>('links')
+      .snapshotChanges().subscribe(links => {
+          this.links = links.map(l => {
+            const data = l.payload.doc.data();
+            return {
+              id: l.payload.doc.id,
+              name: data.name,
+              description: data.description,
+              url: data.url,
+              owner: data.owner,
+              folder: data.folder
+            };
+          });
+      });
   }
 
   ngOnDestroy(): void {
