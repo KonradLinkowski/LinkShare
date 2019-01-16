@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Link } from '../link';
+import { Link } from '../models/link';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-link',
@@ -10,7 +11,11 @@ export class LinkComponent implements OnInit {
 
   @Input() link: Link;
 
-  constructor() { }
+  constructor(private sanitizer: DomSanitizer) {}
+
+  sanitizeUrl(url: string) {
+    return this.sanitizer.bypassSecurityTrustUrl(url);
+  }
 
   ngOnInit() {
   }

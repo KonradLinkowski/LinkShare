@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ComponentFactoryResolver, ViewChild } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
-import { Folder } from '../folder';
+import { Folder } from '../models/folder';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,11 +12,19 @@ import { Folder } from '../folder';
 export class DashboardComponent implements OnInit, OnDestroy {
   folders: Folder[];
   private foldersValueChanges: Subscription;
+  private modalIsOpen: boolean;
 
-  constructor(private fireAuth: AngularFireAuth, private firestore: AngularFirestore) { }
+  constructor(
+    private fireAuth: AngularFireAuth,
+    private firestore: AngularFirestore
+  ) { }
 
   logout() {
     this.fireAuth.auth.signOut();
+  }
+
+  openModal(value: boolean) {
+    this.modalIsOpen = value;
   }
 
   ngOnInit() {

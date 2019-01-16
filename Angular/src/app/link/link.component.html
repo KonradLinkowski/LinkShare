@@ -1,5 +1,5 @@
 <div class="link">
-  <a class="link_address" href="{{ link.url }}">
+  <a class="link_address" [href]="sanitizeUrl(link.url)">
     <h3 class="title">{{ link.name }}</h3>
   </a>
   <p class="description">{{ link.description }}</p>
