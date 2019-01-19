@@ -18,7 +18,7 @@ export class FolderShareComponent implements OnInit, OnDestroy {
   private findSubscription: Subscription;
   private sharedSubscription: Subscription;
   private allUsers: User[];
-  private users: User[];
+  private users: User[] = [];
   private searchString = '';
   private sharedUsers: User[] = [];
 
