@@ -68,3 +68,27 @@ button {
   opacity: 1;
   transform: translate3d(0,0,0);
 }
+
+/* standard button */
+
+.app-btn {
+  cursor: pointer;
+  margin: 2px 3px;
+  padding: 10px 12px;
+  font-weight: bold;
+  background-color: blue;
+  color: white;
+}
+
+.app-btn--link {
+  color: white;
+  text-decoration: inherit;
+}
+
+.app-btn:hover {
+  background-color: darkblue;
+}
+
+.app-btn:active {
+  background-color: lightblue;
+}

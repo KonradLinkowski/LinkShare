@@ -6,25 +6,3 @@
   padding: 5px;
   border-bottom: 1px solid black;
 }
-
-.nav-btn--link {
-  color: inherit;
-  text-decoration: inherit;
-}
-
-.nav-btn {
-  cursor: pointer;
-  margin: 2px 3px;
-  padding: 10px 12px;
-  font-weight: bold;
-  background-color: blue;
-  color: white;
-}
-
-.nav-btn:hover {
-  background-color: darkblue;
-}
-
-.nav-btn:active {
-  background-color: lightblue;
-}
