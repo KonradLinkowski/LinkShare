@@ -16,38 +16,40 @@ export class FolderShareComponent implements OnInit, OnDestroy {
   @Input() callback: (error?: firebase.firestore.DocumentReference) => void;
 
   private findSubscription: Subscription;
+  private sharedSubscription: Subscription;
   private allUsers: User[];
   private users: User[];
   private searchString = '';
-  private selectedUsers: User[] = [];
+  private sharedUsers: User[] = [];
 
   constructor(private fireStore: AngularFirestore, private fireAuth: AngularFireAuth) { }
 
   search() {
-    this.users = this.allUsers.filter(u => u.displayName.toLowerCase().includes(this.searchString));
+    this.users = this.allUsers.filter(u => {
+      return u.displayName.toLowerCase().includes(this.searchString)
+      && !this.sharedUsers.some(s => s.id === u.id);
+    });
   }
 
-  check(checkbox: HTMLInputElement, index: number) {
-    const user = this.users[index];
-    if (checkbox.checked && !this.selectedUsers.includes(user)) {
-      this.selectedUsers.push(user);
-    } else if (!checkbox.checked && this.selectedUsers.includes(user)) {
-      const userIndex = this.selectedUsers.findIndex(u => u.id === user.id);
-      this.selectedUsers.splice(userIndex, 1);
-    }
+  selectUser(user: User) {
+    this.sharedUsers.push(user);
+    this.search();
+  }
+
+  deselectUser(user: User) {
+    this.sharedUsers.splice(this.sharedUsers.findIndex(u => u.id === user.id), 1);
+    this.search();
   }
 
   share() {
-    this.selectedUsers.forEach(u => {
-      this.fireStore.collection<Folder>('folders').doc(this.folderId).update({
-        users: firestore.FieldValue.arrayUnion(u.id)
-      })
-      .then(() => {
-        this.callback();
-      })
-      .catch(err => {
-        this.callback(err);
-      });
+    this.fireStore.collection<Folder>('folders').doc(this.folderId).update({
+      users: this.sharedUsers
+    })
+    .then(() => {
+      this.callback();
+    })
+    .catch(err => {
+      this.callback(err);
     });
   }
 
@@ -63,6 +65,25 @@ export class FolderShareComponent implements OnInit, OnDestroy {
         };
       });
       this.search();
+    });
+
+    this.sharedSubscription = this.fireStore
+    .collection<Folder>('folders').doc(this.folderId).get()
+    .subscribe(folder => {
+      this.fireStore.collection<User>('users').get()
+      .toPromise().then(snap => {
+        const users = folder.data().users;
+        snap.docs.forEach(doc => {
+          const user: User = {
+            id: doc.id,
+            displayName: doc.data().displayName
+          };
+          if (users.includes(user.id)) {
+            this.sharedUsers.push(user);
+          }
+        });
+        this.search();
+      });
     });
   }
 

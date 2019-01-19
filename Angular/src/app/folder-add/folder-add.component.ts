@@ -20,8 +20,8 @@ export class FolderAddComponent implements OnInit {
       name: this.folderForm.value.name,
       owner: this.fireAuth.auth.currentUser.uid
     })
-    .then(res => {
-      console.log(res);
+    .then(() => {
+      console.log();
     })
     .catch(err => {
       console.log(err);

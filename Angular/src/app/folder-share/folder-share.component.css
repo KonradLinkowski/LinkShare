@@ -1,16 +1,32 @@
-.checkbox {
-  visibility: hidden; 
-  position: absolute;
-}
-
-.label {
-  -webkit-user-select: none;  
-  -moz-user-select: none;    
-  -ms-user-select: none;      
-  user-select: none;
+.button {
   cursor: pointer;
+  margin: 2px 3px;
+  padding: 10px 12px;
+  font-weight: bold;
+  background-color: blue;
+  color: white;
 }
 
-.checkbox:checked ~ label {
-  background: red;
+.button:hover {
+  background-color: darkblue;
+}
+
+.button:active {
+  background-color: lightblue;
+}
+
+.user-box {
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.user {
+  margin: 2px;
+  padding: 3px;
+  background-color: lightblue;
+}
+
+.user--selected::after {
+  content: " x";
 }
