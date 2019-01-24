@@ -27,10 +27,9 @@ export class LoginComponent implements OnInit {
       throw new TypeError('Unknown provider');
     }
     try {
-      await this.registerUser(await this.fireAuth.auth.signInWithPopup(provider));
-      this.router.navigateByUrl('');
+      await this.fireAuth.auth.signInWithRedirect(provider);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 
@@ -59,6 +58,17 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    console.log('init');
+    try {
+      const credentials: auth.UserCredential = await this.fireAuth.auth.getRedirectResult();
+      console.log(credentials.user);
+      if (credentials.user) {
+        await this.registerUser(credentials);
+        // this.router.navigateByUrl('');
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
