@@ -43,7 +43,7 @@ export class FolderShareComponent implements OnInit, OnDestroy {
 
   share() {
     this.fireStore.collection<Folder>('folders').doc(this.folderId).update({
-      users: this.sharedUsers
+      users: this.sharedUsers.map(u => u.id)
     })
     .then(() => {
       this.callback();
@@ -72,7 +72,7 @@ export class FolderShareComponent implements OnInit, OnDestroy {
     .subscribe(folder => {
       this.fireStore.collection<User>('users').get()
       .toPromise().then(snap => {
-        const users = folder.data().users;
+        const users = folder.data().users || [];
         snap.docs.forEach(doc => {
           const user: User = {
             id: doc.id,
