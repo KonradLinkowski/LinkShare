@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -9,6 +9,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
   styleUrls: ['./folder-add.component.css']
 })
 export class FolderAddComponent implements OnInit {
+  @Input() callback: (error?: firebase.firestore.DocumentReference) => void;
   folderForm = new FormGroup({
     name: new FormControl('')
   });
@@ -20,11 +21,11 @@ export class FolderAddComponent implements OnInit {
       name: this.folderForm.value.name,
       owner: this.fireAuth.auth.currentUser.uid
     })
-    .then(res => {
-      console.log(res);
+    .then(() => {
+      this.callback();
     })
     .catch(err => {
-      console.log(err);
+      this.callback(err);
     });
     this.folderForm.setValue({
       name: ''

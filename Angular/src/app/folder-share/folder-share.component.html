@@ -1,14 +1,18 @@
 <div class="wrapper">
-  <input type="text" (keyup)="search()" [(ngModel)]="searchString">
-  <div *ngFor="let user of users; let i = index">
-    <input
-      type="checkbox"
-      name=""
-      id="tag-{{ i }}"
-      (change)="check($event.target, i)"
-      class="checkbox"
-    >
-    <label for="tag-{{ i }}" class="label">{{ user.displayName }}</label>
+  <h1>Share with friends</h1>
+  <input type="text" (keyup)="search()" [(ngModel)]="searchString" class="search" placeholder="search">
+  <div class="user-box">
+    <span *ngIf="users.length === 0">No more friends</span>
+    <button (click)="selectUser(user)" *ngFor="let user of users" class="user">{{ user.displayName }}</button>
   </div>
-  <button (click)="share()" class="folder_form-button" >Submit</button>
+  <h2>Shared with:</h2>
+  <div class="user-box">
+    <span *ngIf="sharedUsers.length === 0">Select someone</span>
+    <button
+      (click)="deselectUser(user)"
+      *ngFor="let user of sharedUsers"
+      class="user user--selected"
+    >{{ user.displayName }}</button>
+  </div>
+  <button (click)="share()" class="app-btn" >Submit</button>
 </div>

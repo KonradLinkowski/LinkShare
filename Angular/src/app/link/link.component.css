@@ -2,12 +2,21 @@
   border-radius: 5px;
   border: 1px solid red;
   padding: 4px;
+  position: relative;
 }
 
 .title {
   margin: 3px;
+  display: inline-block;
 }
 
 .description {
   margin: 2px;
+}
+
+.delete {
+  cursor: pointer;
+  position: absolute;
+  top: 8px;
+  right: 8px;
 }

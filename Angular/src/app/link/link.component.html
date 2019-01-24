@@ -1,7 +1,12 @@
 <div class="link">
-  <a class="link_address" [href]="sanitizeUrl(link.url)">
+  <a [href]="sanitizeUrl(link.url)" class="link_address tooltip fade" [attr.data-title]="link.url">
     <h3 class="title">{{ link.name }}</h3>
   </a>
   <p class="description">{{ link.description }}</p>
-  <button (click)="deleteLink()" *ngIf="isMine()">x</button>
+  <button
+    (click)="deleteLink()"
+    *ngIf="isMine()"
+    class="delete tooltip fade"
+    data-title="Delete link"
+    ><span class="fas fa-times"></span></button>
 </div>

@@ -1,9 +1,23 @@
 <div class="folder">
   <h2>{{ folder.name }}</h2>
   <div class="buttons">
-    <button (click)="openModal('link-add')" class="btn btn--add"><span class="fas fa-plus"></span></button>
-    <button (click)="openModal('folder-share')" *ngIf="isMine()" class="btn btn--share"><span class="fas fa-user-plus"></span></button>
-    <button (click)="deleteFolder()" *ngIf="isMine()" class="btn btn--delete"><span class="fas fa-times"></span></button>
+    <button
+      (click)="openModal('link-add')"
+      class="btn btn--add tooltip fade"
+      data-title="Add link"
+      ><span class="fas fa-plus"></span></button>
+    <button
+      (click)="openModal('folder-share')"
+      *ngIf="isMine()"
+      class="btn btn--share tooltip fade"
+      data-title="Share with friends"
+      ><span class="fas fa-user-plus"></span></button>
+    <button
+      (click)="deleteFolder()"
+      *ngIf="isMine()"
+      class="btn btn--delete tooltip fade"
+      data-title="Delete folder"
+      ><span class="fas fa-times"></span></button>
   </div>
   <div *ngIf="modal" class="modal">
     <div class="modal-inner">

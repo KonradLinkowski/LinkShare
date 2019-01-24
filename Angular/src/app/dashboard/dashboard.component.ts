@@ -29,6 +29,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.modalIsOpen = value;
   }
 
+  onFolderAdded(error: firebase.firestore.DocumentReference) {
+    if (error) {
+      console.error(error);
+    }
+  }
+
   ngOnInit() {
     this.foldersValueChanges = this.firestore
     .collection<Folder>('folders', ref => ref.where('owner', '==', this.fireAuth.auth.currentUser.uid))

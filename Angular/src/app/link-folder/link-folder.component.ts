@@ -23,7 +23,6 @@ export class LinkFolderComponent implements OnInit, OnDestroy {
   }
 
   openModal(value?: string) {
-    console.log(value);
     this.modal = value;
   }
 

@@ -32,8 +32,8 @@ service cloud.firestore {
       }
     }
     match /users/{user} {
-      allow get, create, delete, update: if signedIn() && isOwner(user);
-      allow list: if signedIn();
+      allow create, delete, update: if signedIn() && isOwner(user);
+      allow read: if signedIn();
     }
   }
 }

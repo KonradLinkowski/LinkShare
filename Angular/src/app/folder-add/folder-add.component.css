@@ -1,0 +1,16 @@
+.folder_form {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.label {
+  visibility: hidden;
+  position: absolute;
+}
+
+.folder_form-input {
+  margin: 2px;
+  padding: 10px;
+  border-radius: 10px;
+}
