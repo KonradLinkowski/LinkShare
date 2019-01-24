@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { auth } from 'firebase/app';
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements AfterViewInit {
 
   constructor(public fireAuth: AngularFireAuth, private firestore: AngularFirestore, private router: Router) {
   }
@@ -58,17 +58,21 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  async ngOnInit() {
-    console.log('init');
-    try {
-      const credentials: auth.UserCredential = await this.fireAuth.auth.getRedirectResult();
-      console.log(credentials.user);
-      if (credentials.user) {
-        await this.registerUser(credentials);
-        // this.router.navigateByUrl('');
-      }
-    } catch (error) {
-      console.error(error);
-    }
+  ngAfterViewInit() {
+      this.fireAuth.auth.getRedirectResult()
+      .then(credentials => {
+        if (credentials.user) {
+          this.registerUser(credentials)
+          .then(() => {
+            this.router.navigateByUrl('');
+          })
+          .catch(error => {
+            console.error(error);
+          });
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
 }
